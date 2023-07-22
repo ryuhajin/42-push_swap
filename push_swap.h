@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/21 22:47:24 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 15:13:22 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef INT_MAX
+#  define INT_MAX 2147483647
+# endif
+# ifndef INT_MIN
+#  define INT_MIN -2147483648
+# endif
+
 typedef enum e_status
 {
     //malloce_fail = -1

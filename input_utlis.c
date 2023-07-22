@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utlis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:19:42 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/21 23:27:48 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 17:43:45 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ int numbers_space_check(char c)
 {
     if (c >= '0' && c <= '9')
         return success;
-    if (c == ' ')
-        return success;
+	else if (c == '-' || c == '+')
+		return success;
     return failed;
 }
-
 int slipt_ready(int argc, char ** argv)
 {
     int i;
     int j;
+	int cnt;
+	
     i = 0;
+	cnt = 0;
     if (argc == 1)
         return failed;
     while (argv[i])
@@ -35,16 +37,18 @@ int slipt_ready(int argc, char ** argv)
             return failed;
         while (argv[i][j])
         {
-            if (numbers_space_check(argv[i][j]) == failed)
-                return failed;
+			if (numbers_space_check(argv[i][j]) == failed)
+				return failed;
+			j++;
         }
         i++;
     }
     return success;
 }
 
-int atoi_ready(int argc, char ** argv, char *** split)
+int atoi_ready(int argc, char ** argv, char ** split[])
 {
+	char ** temp;
     int i;
     int j;
 
@@ -52,24 +56,20 @@ int atoi_ready(int argc, char ** argv, char *** split)
     j = 0;
     while (i < argc)
     {
-        split[j] = ft_split(argv[i], ' ');
-        if(split[j] == NULL)
+        temp = ft_split(argv[i], ' ');
+        if(temp == NULL)
             return failed;
+		split[j] = temp;
         i++;
         j++;
     }
-    split[argc] = NULL;
+    split[j] = NULL;
     return success;
-}
-
-int list_ready(int argc, char *** split)
-{
-    
 }
 
 int input_ready(int argc, char ** argv)
 {
-    char ** split[argc];
+    char ** split[argc -1];
 
     if (split_ready(argv))
     {

@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 23:19:12 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/21 23:28:41 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 18:04:14 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	long long	numbers;
 	int			minus;
@@ -48,7 +38,25 @@ int	ft_atoi(const char *str)
 	return (numbers * minus);
 }
 
-int max_min_check(int argc, char *** split)
+int list_ready(int argc, char ** split[])
 {
-    
+    long long temp;
+	int i;
+	int j;
+	
+	i = 0;
+	j = 0;
+	while (i < argc-1)
+	{
+		while (split[i][j])
+		{
+			temp = ft_atoi(split[i][j]);
+			if (temp < INT_MIN || INT_MAX < temp)
+			{	
+				//split_clear(argc, split);
+				//fclear_list(list);
+				return failed;
+			}
+		}
+	}
 }

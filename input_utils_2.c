@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:26:11 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 14:29:26 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 18:08:07 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "push_swap.h"
+
+void split_free(char ** split)
+{
+	int i;
+	i = 0;
+	while(split[i])
+	{	
+		printf("del: %p %s\n", split[i], split[i]);
+		free(split[i]);
+		i++;
+	}
+	printf("delet: %p\n", split[i]);
+	free(split[i]);
+}
+
+void split_clear(int argc, char ** split[])
+{
+	int i;
+	i = 0;
+	while(i < argc-1)
+	{
+		split_free(split[i]);
+		i++;
+	}
+}
 
 static size_t	count_word(char const *str, char c)
 {
@@ -107,4 +133,39 @@ char	**ft_split(char const *str, char c)
 	}
 	copy_words(split, str, c, size);
 	return (split);
+}
+
+void	check_leak(void)
+{
+	system("leaks --list a.out");
+}
+
+int main(int argc, char ** argv)
+{
+	char ** split;
+	char ** splits[argc-1];
+	int i = 1;
+	int j = 0;
+	while(i < argc)
+	{
+		split = ft_split(argv[i], ' ');
+		splits[j] = split;
+		i++;
+		j++;
+	}
+	splits[j] = NULL;
+	i = 0;
+	j = 0;
+	while(i < argc -1)
+	{	
+		j = 0;
+		while(splits[i][j])
+		{
+			printf("%s\n", splits[i][j]);
+			j++;
+		}
+		i++;
+	}
+	split_clear(argc, splits);
+	atexit(check_leak);
 }
