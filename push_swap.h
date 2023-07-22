@@ -6,30 +6,56 @@
 /*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/06 21:42:27 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/21 22:47:24 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+typedef enum e_status
+{
+    //malloce_fail = -1
+	failed = 0,
+	success = 1
+}	t_status;
 typedef struct Node
 {
-    t_node * next;
-    t_node * prev;
+    struct Node * next;
+    struct Node * prev;
     int value;
-    //함수 포인터 print_value(node 값 출력)
 } t_node;
-
 typedef struct List
 {
-    t_node * head; //원형 연결 리스트는 항상 마지막 노드를 가르켜야 한다.
-    //head == 마지막 노드 주소. head->prev == 첫번째 노드 주소
-    //함수 포인터 iter(리스트 값 출력), size(노드가 몇 개 있는지)
+    t_node * head;
+    int size;
 } t_list;
 
+//리스트 init, print_list
+t_list * make_list(void);
+t_node * make_node(int numbers);
+void del_node(t_node * node);
+void print_list(t_list * list);
+
+// 삽입, 추가, 이동
+t_node * first_add_node (t_list * list, int value);
+void splice(t_list * list, t_node * a, t_node * b, t_node * x);
+void next_move_node(t_list * list, t_node * this, t_node * self, t_node * x);
+void prev_move_node(t_list * list, t_node * this, t_node * self, t_node * x);
+t_node * next_insert_node(t_list * list, t_node * x, int value);
+t_node * prev_insert_node(t_list * list, t_node * x, int value);
+t_node * push_Front(t_list * list, int value);
+t_node * push_Back(t_list * list, int value);
+
+// 탐색
+t_node * search_node(t_list * list, int value);
+
+// 삭제
+void remove_node(t_list * list, t_node * n);
+void clear_list(t_list * list);
+void fclear_list(t_list * list);
 
 #endif
