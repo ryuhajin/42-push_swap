@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:26:11 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 21:11:44 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/26 18:02:01 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "push_swap.h"
 
 void split_free(char ** split)
@@ -19,16 +18,14 @@ void split_free(char ** split)
 	i = 0;
 	while(split[i])
 	{	
-		printf("del: %p %s\n", split[i], split[i]);
 		free(split[i]);
 		i++;
 	}
-	printf("delet: %p\n", split[i]);
 	free(split[i]);
 	free(split);
 }
 
-void split_clear(int argc, char ** split[])
+void split_clear(int argc, char ** split[]) //스플릿 전체 삭제
 {
 	int i;
 	i = 0;
@@ -39,7 +36,7 @@ void split_clear(int argc, char ** split[])
 	}
 }
 
-static size_t	count_word(char const *str, char c)
+size_t	count_word(char const *str, char c)
 {
 	size_t	idx;
 	size_t	size;
@@ -55,7 +52,7 @@ static size_t	count_word(char const *str, char c)
 	return (size);
 }
 
-static void	copy_words(char **split, char const *str, char c, size_t size)
+void	copy_words(char **split, char const *str, char c, size_t size)
 {
 	size_t	i;
 	size_t	j;
@@ -80,7 +77,7 @@ static void	copy_words(char **split, char const *str, char c, size_t size)
 	}
 }
 
-static size_t	alloc_words(char **split, char const *str, char c, size_t size)
+size_t	alloc_words(char **split, char const *str, char c, size_t size)
 {
 	size_t	i;
 	size_t	idx;
@@ -136,6 +133,8 @@ char	**ft_split(char const *str, char c)
 	return (split);
 }
 
+/* 
+
 void	check_leak(void)
 {
 	system("leaks --list a.out");
@@ -170,3 +169,4 @@ int main(int argc, char ** argv)
 	split_clear(argc, splits);
 	atexit(check_leak);
 }
+*/

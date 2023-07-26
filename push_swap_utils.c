@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:32:18 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/26 16:06:47 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/26 18:00:34 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_node * make_node(int numbers) //빈 노드 생성
 {
     t_node * node;
     node = (t_node *)malloc(sizeof(t_node));
-    printf("alloc : %p\n", node);
     if (node == NULL)
         return NULL;
     node->value = numbers;
@@ -57,7 +56,7 @@ t_node * first_add_node (t_list * list, int value)
 
 void del_node(t_node * node)
 {
-    printf("del : %p\n", node);
+    // printf("del : %p\n", node);
     free(node);
 }
 
@@ -66,7 +65,7 @@ void print_list(t_list * list)
     t_node * temp;
     if (list->head == NULL)
         return;
-    printf("%d ", list->head->next->value);
+	printf("%d ", list->head->next->value);
     temp = list->head->next->next;
     while (temp != list->head->next)
     {
@@ -188,11 +187,13 @@ void clear_list(t_list * list)
 {
     t_node * node;
     t_node * temp;
+
+	if (list->head == list->head->next)
+		return;
     node = list->head->next->prev;
     while (node != list->head->next)
     {
         remove_node(list, node);
-        print_list(list);
         temp = list->head->next->prev;
         node = temp;
     }
@@ -214,13 +215,13 @@ void fclear_list(t_list * list)
 // 	system("leaks --list a.out");
 // }
 
-int main(void)
-{
-    t_list * list = make_list();
-    push_Back(list, 1);
-    push_Back(list ,2);
-    print_list(list);
-    // fclear_list(list);
-    // atexit(check_leak);
-    return 0;
-}
+// int main(void)
+// {
+//     t_list * list = make_list();
+//     push_Back(list, 1);
+//     push_Back(list ,2);
+//     print_list(list);
+//     // fclear_list(list);
+//     // atexit(check_leak);
+//     return 0;
+// }

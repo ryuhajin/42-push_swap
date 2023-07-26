@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 23:19:12 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 22:48:04 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/26 18:03:23 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,6 @@ long long	ft_atoi(const char *str)
 	}
 	return (numbers * minus);
 }
-
-int first_flag_check(int argc, char ** split[], t_list * list)
-{
-    long long temp;
-    temp = ft_atoi(split[0][0]);
-    if (temp < INT_MIN || INT_MAX < temp)
-	{	
-		split_clear(argc, split);
-		fclear_list(list);
-		return failed;
-	}
-    first_add_node(list, temp);
-    return success;
-}
-
 int list_ready(int argc, char ** split[], t_list * list)
 {
     long long temp;
@@ -71,9 +56,11 @@ int list_ready(int argc, char ** split[], t_list * list)
 				fclear_list(list);
 				return failed;
 			}
-            //push_node(list, temp);
+            push_Back(list, temp);
             j++;
 		}
         i++;
 	}
+	split_clear(argc, split);
+	return success;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_utlis.c                                      :+:      :+:    :+:   */
+/*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:19:42 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 21:30:06 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/26 17:58:35 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int numbers_space_check(char c)
 {
     if (c >= '0' && c <= '9')
         return success;
-	else if (c == '-' || c == '+')
+	else if (c == '-' || c == '+' || c == ' ')
 		return success;
     return failed;
 }
-int slipt_ready(int argc, char ** argv)
+int split_ready(int argc, char ** argv)
 {
     int i;
     int j;
 	int cnt;
 	
-    i = 0;
+    i = 1;
 	cnt = 0;
     if (argc == 1)
         return failed;
@@ -67,14 +67,22 @@ int atoi_ready(int argc, char ** argv, char ** split[])
     return success;
 }
 
-int input_ready(int argc, char ** argv, char ** split[])
+int input_ready(int argc, char ** argv, char ** split[], t_list * list)
 {
-    if (split_ready(argv))
+    if (split_ready(argc, argv))
     {
+		printf("split ok\n");
         if (atoi_ready(argc, argv, split))
         {
-            return success;
+			printf("atoi ok\n");
+            if (list_ready(argc, split, list))
+			{
+				printf("list ok\n");
+				// print_list(list);
+				return success;
+			}
         }
     }
+	printf("input error\n");
     return failed;
 }

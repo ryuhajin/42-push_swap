@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 15:13:22 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/26 16:39:45 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,21 @@ typedef enum e_status
 	failed = 0,
 	success = 1
 }	t_status;
+
 typedef struct Node
 {
     struct Node * next;
     struct Node * prev;
     int value;
 } t_node;
+
 typedef struct List
 {
     t_node * head;
     int size;
 } t_list;
 
+// push_swap_utlis
 //리스트 init, print_list
 t_list * make_list(void);
 t_node * make_node(int numbers);
@@ -65,5 +68,23 @@ t_node * search_node(t_list * list, int value);
 void remove_node(t_list * list, t_node * n);
 void clear_list(t_list * list);
 void fclear_list(t_list * list);
+
+//input_utils.c
+int numbers_space_check(char c);
+int split_ready(int argc, char ** argv);
+int atoi_ready(int argc, char ** argv, char ** split[]);
+int input_ready(int argc, char ** argv, char ** split[], t_list * list);
+
+//input_utils2.c
+void split_free(char ** split);
+void split_clear(int argc, char ** split[]);
+size_t	count_word(char const *str, char c);
+void	copy_words(char **split, char const *str, char c, size_t size);
+size_t	alloc_words(char **split, char const *str, char c, size_t size);
+char	**ft_split(char const *str, char c);
+
+//input_utils3.c
+long long	ft_atoi(const char *str);
+int list_ready(int argc, char ** split[], t_list * list);
 
 #endif
