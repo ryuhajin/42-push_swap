@@ -6,11 +6,24 @@
 /*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:32:18 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/21 22:25:57 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/26 16:06:47 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+t_node * make_node(int numbers) //빈 노드 생성
+{
+    t_node * node;
+    node = (t_node *)malloc(sizeof(t_node));
+    printf("alloc : %p\n", node);
+    if (node == NULL)
+        return NULL;
+    node->value = numbers;
+    node->next = node;
+    node->prev = node;
+    return node;
+}
 
 t_list * make_list(void) // 리스트 생성 , 헤드==더미노드 설정.
 {
@@ -28,19 +41,6 @@ t_list * make_list(void) // 리스트 생성 , 헤드==더미노드 설정.
     list->head = dummy_node;
     list->size = 0;
     return list;
-}
-
-t_node * make_node(int numbers) //빈 노드 생성
-{
-    t_node * node;
-    node = (t_node *)malloc(sizeof(t_node));
-    printf("alloc : %p\n", node);
-    if (node == NULL)
-        return NULL;
-    node->value = numbers;
-    node->next = node;
-    node->prev = node;
-    return node;
 }
 
 t_node * first_add_node (t_list * list, int value)
@@ -108,9 +108,19 @@ void prev_move_node(t_list * list, t_node * this, t_node * self, t_node * x)
 t_node * next_insert_node(t_list * list, t_node * x, int value) //x 노드 앞에 추가
 {
     t_node * node;
-    node = make_node(value);
-    if(node == NULL)
-        return NULL;
+    if(list->head == list->head->next)
+    {
+        node = first_add_node(list, value);
+        if (node == NULL)
+            return NULL;
+        return node;
+    }
+    else 
+    {
+        node = make_node(value);
+        if(node == NULL)
+            return NULL;
+    }
     next_move_node(list, node, node, x);
     list->size++;
     return node;
@@ -119,6 +129,13 @@ t_node * next_insert_node(t_list * list, t_node * x, int value) //x 노드 앞�
 t_node * prev_insert_node(t_list * list, t_node * x, int value) //x 노드 뒤에 추가
 {
     t_node * node;
+    if (list->head == list->head->next)
+    {
+        node = first_add_node(list, value);
+        if (node == NULL)
+            return NULL;
+        return node;
+    }
     node = make_node(value);
     if(node == NULL)
         return NULL;
@@ -190,4 +207,20 @@ void fclear_list(t_list * list)
     free(list->head);
     list->head = NULL;
     free(list);
+}
+
+// void	check_leak(void)
+// {
+// 	system("leaks --list a.out");
+// }
+
+int main(void)
+{
+    t_list * list = make_list();
+    push_Back(list, 1);
+    push_Back(list ,2);
+    print_list(list);
+    // fclear_list(list);
+    // atexit(check_leak);
+    return 0;
 }

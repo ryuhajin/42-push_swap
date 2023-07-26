@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utlis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:19:42 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 17:43:45 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 21:30:06 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,14 @@ int atoi_ready(int argc, char ** argv, char ** split[])
     return success;
 }
 
-int input_ready(int argc, char ** argv)
+int input_ready(int argc, char ** argv, char ** split[])
 {
-    char ** split[argc -1];
-
     if (split_ready(argv))
     {
         if (atoi_ready(argc, argv, split))
         {
-            if (list_ready(argc, split))
-            {
-
-            }
+            return success;
         }
     }
-    
     return failed;
 }

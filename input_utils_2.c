@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: dayou <dayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:26:11 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/22 18:08:07 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 21:11:44 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void split_free(char ** split)
 	}
 	printf("delet: %p\n", split[i]);
 	free(split[i]);
+	free(split);
 }
 
 void split_clear(int argc, char ** split[])
