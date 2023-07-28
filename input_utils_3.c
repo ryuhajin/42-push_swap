@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 23:19:12 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/28 19:39:54 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:21:44 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ long long	ft_atoi(const char *str)
 
 int search_same_value(t_list * list, int value)
 {
+	if (list->size == 0)
+		return success;
 	if (search_node(list, value))
 		return failed;
 	return success;
@@ -59,7 +61,7 @@ int list_ready(int argc, char ** split[], t_list * list)
 		{
 			temp = ft_atoi(split[i][j]);
 			if (temp < INT_MIN || INT_MAX < temp || !search_same_value(list, (int)temp))
-			{	
+			{
 				split_clear(argc, split);
 				fclear_list(list);
 				return failed;
