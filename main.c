@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:40:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/28 21:20:54 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:24:49 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int argc, char * argv[])
 	// 	return 0;
     if (!input_ready(argc, argv, split, stack_A))
 	{
-		printf("Error\n");
+		write(1, "Error\n", 6); //표준출력으로 출력하기.
 		return 0;
 	}
 	print_list(stack_A);
