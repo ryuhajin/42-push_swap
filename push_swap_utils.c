@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:32:18 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/26 18:00:34 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:37:51 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void del_node(t_node * node)
 void print_list(t_list * list)
 {
     t_node * temp;
-    if (list->head == NULL)
+    if (list->head->next == list->head)
         return;
 	printf("%d ", list->head->next->value);
     temp = list->head->next->next;
@@ -143,12 +143,12 @@ t_node * prev_insert_node(t_list * list, t_node * x, int value) //x 노드 뒤�
     return node;
 }
 
-t_node * push_Front(t_list * list, int value) //헤드 앞에 추가
+t_node * push_Front(t_list * list, int value) //헤드 앞 추가 (head->next)
 {
     return next_insert_node(list, list->head->next, value);
 }
 
-t_node * push_Back(t_list * list, int value) //헤드 뒤에 추가 (가장 마지막 노드)
+t_node * push_Back(t_list * list, int value) //헤드 뒤에 추가 (head->prev) (가장 마지막 노드)
 {
     return prev_insert_node(list, list->head->next, value);
 }
@@ -168,11 +168,18 @@ t_node * search_node(t_list * list, int value)
     }
     return NULL;
 }
-
 void remove_node(t_list * list, t_node * n)
 {
     if (n == list->head)
         return;
+	if (list->size == 1)
+	{
+		del_node(n);
+		list->head->next = list->head;
+		list->head->prev = list->head;
+		list->size--;
+		return;
+	}
     if (n == list->head->next)
     {
         list->head->next = list->head->next->next;

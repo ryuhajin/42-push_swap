@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/26 16:39:45 by dayou            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:31:09 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,21 @@ char	**ft_split(char const *str, char c);
 
 //input_utils3.c
 long long	ft_atoi(const char *str);
+int search_same_value(t_list * list, int value);
 int list_ready(int argc, char ** split[], t_list * list);
+
+//command_utils.c
+int make_stack (t_list * stack_A, t_list * stack_B);
+void cmd_s (t_list * stack);
+void cmd_ss (t_list * stack_a, t_list * stack_b);
+void cmd_pa (t_list * stack_a, t_list * stack_b);
+void cmd_pb (t_list * stack_a, t_list * stack_b);
+void cmd_ra (t_list * stack_a);
+void cmd_rb (t_list * stack_b);
+void cmd_rr (t_list * stack_a, t_list * stack_b);
+void cmd_rra (t_list * stack_a);
+void cmd_rra (t_list * stack_a);
+void cmd_rrb (t_list * stack_b);
+void cmd_rrr (t_list * stack_a, t_list * stack_b);
 
 #endif
