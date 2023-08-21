@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/28 19:31:09 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/21 19:12:24 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,11 @@ void cmd_rra (t_list * stack_a);
 void cmd_rra (t_list * stack_a);
 void cmd_rrb (t_list * stack_b);
 void cmd_rrr (t_list * stack_a, t_list * stack_b);
+
+//sort.c
+void ft_swap (int * start, int * end);
+void stack_A_sort (t_list * stack_A);
+void quick_sort (int * arr, int start, int end);
+void printf_sort (int * arr, int size);
 
 #endif

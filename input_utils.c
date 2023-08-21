@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:19:42 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/28 21:19:36 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/21 20:45:00 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int numbers_space_check(char c)
     if (c >= '0' && c <= '9')
         return success;
 	else if (c == '-' || c == '+' || c == ' ')
+	{
 		return success;
+	}
     return failed;
 }
 int split_ready(int argc, char ** argv)
@@ -25,7 +27,7 @@ int split_ready(int argc, char ** argv)
     int i;
     int j;
 	int cnt;
-	
+
     i = 1;
 	cnt = 0;
     if (argc == 1)
@@ -37,7 +39,9 @@ int split_ready(int argc, char ** argv)
             return failed;
         while (argv[i][j])
         {
-			if (numbers_space_check(argv[i][j]) == failed)
+			if (!numbers_space_check(argv[i][j]))
+				return failed;
+			if (argv[i][j+1] == '-' || argv[i][j+1] == '+')
 				return failed;
 			j++;
         }
