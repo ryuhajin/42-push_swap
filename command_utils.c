@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:39:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/28 19:16:28 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/22 17:08:15 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,41 @@ int make_stack (t_list * stack_A, t_list * stack_B) //stack b make
 	return success;
 }
 
-void cmd_s (t_list * stack) // stack a top index 0, 1 chage
+void cmd_sa (t_list * stack_A) // stack_A a top index 0, 1 chage
 {
 	t_node * index_0;
 	t_node * index_1;
 
-	if (stack->size < 2)
+	if (stack_A->size < 2)
 		return;
-	index_0 = stack->head->next;
-	index_1 = stack->head->next->next;
-	if (stack->size != 2)
-		prev_move_node(stack, index_1, index_1, index_0);
-	stack->head->next = index_1;
+	index_0 = stack_A->head->next;
+	index_1 = stack_A->head->next->next;
+	if (stack_A->size != 2)
+		prev_move_node(stack_A, index_1, index_1, index_0);
+	stack_A->head->next = index_1;
+	write(1, "sa\n", 3);
+}
+
+void cmd_sb (t_list * stack_B) // stack_B a top index 0, 1 chage
+{
+	t_node * index_0;
+	t_node * index_1;
+
+	if (stack_B->size < 2)
+		return;
+	index_0 = stack_B->head->next;
+	index_1 = stack_B->head->next->next;
+	if (stack_B->size != 2)
+		prev_move_node(stack_B, index_1, index_1, index_0);
+	stack_B->head->next = index_1;
+	write(1, "sb\n", 3);
 }
 
 void cmd_ss (t_list * stack_a, t_list * stack_b) //sa, sb 
 {
-	cmd_s(stack_a);
-	cmd_s(stack_b);
+	cmd_sa(stack_a);
+	cmd_sb(stack_b);
+	write(1, "ss\n", 3);
 }
 
 void cmd_pa (t_list * stack_b, t_list * stack_a) // b top -> a top 
@@ -49,6 +66,7 @@ void cmd_pa (t_list * stack_b, t_list * stack_a) // b top -> a top
 	stack_b_top = push_Back(stack_a, stack_b->head->next->value);
 	stack_a->head->next = stack_b_top;
 	remove_node(stack_b, stack_b->head->next);
+	write(1, "pa\n", 3);
 }
 
 void cmd_pb (t_list * stack_a, t_list * stack_b) // a top -> b top
@@ -59,6 +77,7 @@ void cmd_pb (t_list * stack_a, t_list * stack_b) // a top -> b top
 	stack_a_top = push_Back(stack_b, stack_a->head->next->value);
 	stack_b->head->next = stack_a_top;
 	remove_node(stack_a, stack_a->head->next);
+	write(1, "pb\n", 3);
 }
 
 void cmd_ra (t_list * stack_a) // index 0 -> index last
@@ -66,6 +85,7 @@ void cmd_ra (t_list * stack_a) // index 0 -> index last
 	if (stack_a->size < 2)
 		return;
 	stack_a->head->next = stack_a->head->next->next;
+	write(1, "ra\n", 3);
 }
 
 void cmd_rb (t_list * stack_b) // index 0 -> index last
@@ -73,12 +93,14 @@ void cmd_rb (t_list * stack_b) // index 0 -> index last
 	if (stack_b->size < 2)
 		return;
 	stack_b->head->next = stack_b->head->next->next;
+	write(1, "rb\n", 3);
 }
 
 void cmd_rr (t_list * stack_a, t_list * stack_b) // ra, rb
 {
 	cmd_ra(stack_a);
 	cmd_rb(stack_b);
+	write(1, "rr\n", 3);
 }
 
 void cmd_rra (t_list * stack_a) // index last -> index 0
@@ -86,6 +108,7 @@ void cmd_rra (t_list * stack_a) // index last -> index 0
 	if (stack_a->size < 2)
 		return;
 	stack_a->head->next = stack_a->head->next->prev;
+	write(1, "rra\n", 4);
 }
 
 void cmd_rrb (t_list * stack_b) // index last -> index 0
@@ -93,10 +116,12 @@ void cmd_rrb (t_list * stack_b) // index last -> index 0
 	if (stack_b->size < 2)
 		return;
 	stack_b->head->next = stack_b->head->next->prev;
+	write(1, "rrb\n", 4);
 }
 
 void cmd_rrr (t_list * stack_a, t_list * stack_b) //rra, rrb
 {
 	cmd_rra(stack_a);
 	cmd_rrb(stack_b);
+	write(1, "rrr\n", 4);
 }

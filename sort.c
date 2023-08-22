@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:21:37 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/21 19:16:29 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/22 16:57:42 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void ft_swap (int * start, int * end)
 	*end = temp;
 }
 
-void stack_A_sort (t_list * stack_A)
+int stack_A_sort (t_list * stack_A)
 {
 	int arr[stack_A->size];
     t_node * temp;
@@ -35,9 +35,13 @@ void stack_A_sort (t_list * stack_A)
         temp = temp->next;
     }
 	printf_sort(arr, stack_A->size);
-	printf("sort start\n");
+	// printf("sort start\n");
 	quick_sort(arr, 0, (stack_A->size)-1);
-	printf_sort(arr, stack_A->size);
+	// printf_sort(arr, stack_A->size);
+	if (sort_check(arr, stack_A))
+		return failed; // 0 == 정렬되어 있으면 그리디 x 바로 종료
+	stack_A_indexing (arr, stack_A);
+	return success; // 1 == 그리디 시작
 }
 
 void quick_sort (int * arr, int start, int end)
@@ -76,4 +80,35 @@ void printf_sort (int * arr, int size)
 		i++;
 	}
 	printf("\n");
+}
+
+int sort_check (int * arr, t_list * stack_A)
+{
+	int i;
+	t_node * temp;
+
+	i = 0;
+	temp = stack_A->head->next;
+	while (i < stack_A->size)
+	{
+		if (arr[i] != temp->value)
+			return failed;
+		i++;
+		temp = temp->next;
+	}
+	return success;
+}
+
+void stack_A_indexing (int * arr, t_list * stack_A)
+{
+	int i;
+	t_node * temp;
+
+	i = 0;
+	while (i < stack_A->size)
+	{
+		temp = search_node(stack_A, arr[i]);
+		temp->value = i;
+		i++;
+	}
 }

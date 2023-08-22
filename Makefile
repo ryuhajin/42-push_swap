@@ -4,7 +4,7 @@ CFLAG = -Wall -Werror -Wextra -g
 
 NAME = push_swap
 
-SRCS = sort.c push_swap_utils.c input_utils.c input_utils_2.c input_utils_3.c main.c
+SRCS =  sort.c push_swap_utils.c input_utils.c input_utils_2.c input_utils_3.c greedy.c command_utils.c main.c
 
 OBJS = $(SRCS:.c=.o)
 

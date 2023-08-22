@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/21 19:12:24 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/22 20:41:34 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int list_ready(int argc, char ** split[], t_list * list);
 
 //command_utils.c
 int make_stack (t_list * stack_A, t_list * stack_B);
-void cmd_s (t_list * stack);
+void cmd_sa (t_list * stack_A);
+void cmd_sb (t_list * stack_B);
 void cmd_ss (t_list * stack_a, t_list * stack_b);
 void cmd_pa (t_list * stack_a, t_list * stack_b);
 void cmd_pb (t_list * stack_a, t_list * stack_b);
@@ -104,8 +105,17 @@ void cmd_rrr (t_list * stack_a, t_list * stack_b);
 
 //sort.c
 void ft_swap (int * start, int * end);
-void stack_A_sort (t_list * stack_A);
+int stack_A_sort (t_list * stack_A);
 void quick_sort (int * arr, int start, int end);
 void printf_sort (int * arr, int size);
+int sort_check (int * arr, t_list * stack_A);
+void stack_A_indexing (int * arr, t_list * stack_A);
+
+//greedy.c
+void A_to_B (t_list * stack_A, t_list * stack_B);
+void min_to_stack_B (int min_pivot, t_list * stack_A, t_list * stack_B);
+void middle_to_stack_B (int max_pivot, t_list * stack_A, t_list * stack_B);
+void max_to_stack_B (int input_max, t_list * stack_A, t_list * stack_B);
+void stack_A_in_three_node (t_list * stack_A);
 
 #endif
