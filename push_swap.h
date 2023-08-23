@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/22 20:41:34 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/23 21:53:20 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,9 @@ void printf_sort (int * arr, int size);
 int sort_check (int * arr, t_list * stack_A);
 void stack_A_indexing (int * arr, t_list * stack_A);
 
-//greedy.c
+//solution.c
 void A_to_B (t_list * stack_A, t_list * stack_B);
-void min_to_stack_B (int min_pivot, t_list * stack_A, t_list * stack_B);
-void middle_to_stack_B (int max_pivot, t_list * stack_A, t_list * stack_B);
-void max_to_stack_B (int input_max, t_list * stack_A, t_list * stack_B);
+void move_range_to_b(int min, int max, t_list *stack_a, t_list *stack_b);
 void stack_A_in_three_node (t_list * stack_A);
 
 #endif
