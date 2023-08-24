@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:32:18 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/28 19:37:51 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/24 16:22:16 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_list * make_list(void) // 리스트 생성 , 헤드==더미노드 설정.
     }
     list->head = dummy_node;
     list->size = 0;
+	list->idx_size = 0;
     return list;
 }
 

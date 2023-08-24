@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/23 21:53:20 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/24 22:12:44 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct List
 {
     t_node * head;
     int size;
+	int idx_size;
 } t_list;
 
 // push_swap_utlis
@@ -112,8 +113,11 @@ int sort_check (int * arr, t_list * stack_A);
 void stack_A_indexing (int * arr, t_list * stack_A);
 
 //solution.c
-void A_to_B (t_list * stack_A, t_list * stack_B);
+void find_max_idx (t_list * stack_A, t_list * stack_B);
 void move_range_to_b(int min, int max, t_list *stack_a, t_list *stack_b);
 void stack_A_in_three_node (t_list * stack_A);
+void stack_A_B_setting(t_list * stack_A, t_list * stack_B);
+int stack_A_size_too_small (t_list * stack_A);
+
 
 #endif
