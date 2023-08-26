@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:40:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/24 22:26:50 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/26 23:15:56 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 //./push_swap " " <- Error // "-100 100" <- input error로 나옴 확인해봐야함
 // int_max 초과 long long 범위 안 atoi 확인하기
+// 10 개 이상일 때 무한 반복 수정하기 
+
  
 int main(int argc, char * argv[])
 {
@@ -47,16 +49,12 @@ int main(int argc, char * argv[])
 	stack_A->idx_size = stack_A->size;
 	// print_list(stack_A);
 	if (!stack_A_sort(stack_A))
-	{
-		printf("a");
 		return 0;
-	}
-	if (!stack_A_size_too_small(stack_A))
-	{
-		printf("b");
+	if (!stack_A_size_too_small(stack_A, stack_B))
 		return 0;
-	}
-	stack_A_B_setting(stack_A, stack_B);
+	solution_commander(stack_A, stack_B);
+	fclear_list(stack_B);
+	fclear_list(stack_A);
 	// print_list(stack_B);
 	// fclear_list(list);
     // atexit(check_leak);

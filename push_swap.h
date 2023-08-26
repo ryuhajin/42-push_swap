@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/24 22:12:44 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/26 22:39:31 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,21 @@ void stack_A_indexing (int * arr, t_list * stack_A);
 //solution.c
 void find_max_idx (t_list * stack_A, t_list * stack_B);
 void move_range_to_b(int min, int max, t_list *stack_a, t_list *stack_b);
+void stack_A_in_two_node (t_list * stack_A);
 void stack_A_in_three_node (t_list * stack_A);
+void stack_A_in_four_node (t_list * stack_A, t_list * stack_B);
+int stack_A_size_too_small (t_list * stack_A, t_list * stack_B);
 void stack_A_B_setting(t_list * stack_A, t_list * stack_B);
-int stack_A_size_too_small (t_list * stack_A);
-
+void stack_A_round (t_list * stack_A, t_node * B_temp, int * temp_total);
+void stack_B_round (t_list * stack_A, t_list * stack_B, t_node * temp, int * temp_total);
+void rr_compare (int * temp_total);
+void rrr_compare (int * temp_total);
+void cmd_count (int * temp_total);
+void copy_cmd(int * temp_total, int * min_cmd);
+void cnt_optimization (int * temp_total, int * min_cmd);
+void cmd_reset (int * arr);
+void one_round_count (t_list * stack_A, t_list * stack_B, int * min_cmd);
+void cmd_call (t_list * stack_A, t_list * stack_B, int * min_cmd);
+void solution_commander (t_list * stack_A, t_list * stack_B);
 
 #endif
