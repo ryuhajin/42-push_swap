@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:00:16 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/26 23:15:24 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/27 18:12:25 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,19 +118,26 @@ void stack_A_B_setting (t_list * stack_A, t_list * stack_B)
 	cmd_pa(stack_B, stack_A);
 }
 
-void stack_A_round (t_list * stack_A, t_node * B_temp, int * temp_total) //idx(val) < stack_A->idx_size / 2 == rrb
+void stack_A_round (t_list * stack_A, int * temp_total) //idx(val) < stack_A->idx_size / 2 == rrb
 {
 	t_node * A_temp;
+	int idx;
 
+	idx = 0;
 	A_temp = stack_A->head->next;
 	temp_total[1] = 0; //ra
 	temp_total[2] = 0; //rra
 	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
-	if (A_temp->value > B_temp->value && A_temp->prev->value < B_temp->value)
+	if (A_temp->value > temp_total[0] && A_temp->prev->value < temp_total[0])
 		return;
-	while (!( A_temp->value > B_temp->value &&  A_temp->value < B_temp->value))
+	while (!(A_temp->value < temp_total[0] && A_temp->next->value > temp_total[0]))
 	{
-		if (B_temp->value >= stack_A->idx_size / 2)
+		idx++;
+		A_temp = A_temp->next;
+	}
+	while (A_temp != stack_A->head->next->prev)
+	{
+		if (idx < stack_A->size / 2)
 		{	
 			A_temp = A_temp->prev;
 			temp_total[1]++;
@@ -145,15 +152,14 @@ void stack_A_round (t_list * stack_A, t_node * B_temp, int * temp_total) //idx(v
 	}
 }
 
-void stack_B_round (t_list * stack_A, t_list * stack_B, t_node * temp, int * temp_total)
+void stack_B_round (t_list * stack_B, t_node * temp, int * temp_total, int idx)
 {
-	temp_total[0] = temp->value;
 	temp_total[3] = 0;
 	temp_total[4] = 0;
 	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
 	while (temp != stack_B->head->next)
 	{
-		if (temp->value >= stack_A->idx_size / 2)
+		if (idx < stack_B->size / 2)
 		{
 			temp = temp->prev;
 			temp_total[3]++;
@@ -266,24 +272,20 @@ void one_round_count (t_list * stack_A, t_list * stack_B, int * min_cmd)
 	
 	int temp_total[8]; // temp 값
 	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
-	int stack_B_size;
-	int cnt;
+	int idx;
 	
 
 	temp = stack_B->head->next;
-	stack_B_size = stack_B->size;
-	cnt = 0;
-	printf("call one_r_c\n");
-	while (cnt < stack_B_size)
+	idx = 0;
+	// printf("call one_r_c\n");
+	while (idx < stack_B->size)
 	{
-		stack_B_round(stack_A, stack_B, temp, temp_total);
-		printf("call B_r\n");
-		stack_A_round(stack_A, temp, temp_total);
-		printf("call A_r\n");
+		temp_total[0] = temp->value;
+		stack_B_round(stack_B, temp, temp_total, idx);
+		stack_A_round(stack_A, temp_total);
 		cnt_optimization(temp_total, min_cmd);
-		printf("call opt\n");
-		temp = temp->next;
-		cnt++;
+		temp = (search_node(stack_B, temp_total[0]))->next;
+		idx++;
 	}
 }
 
@@ -311,26 +313,45 @@ void cmd_call (t_list * stack_A, t_list * stack_B, int * min_cmd)
 		cmd_rrb(stack_B);
 }
 
+void last_stack_A_sort (t_list * stack_A)
+{
+	t_node * temp;
+	t_node * head_node;
+	int idx;
+
+	temp = stack_A->head->next;
+	head_node = search_node(stack_A, 0);
+	idx = 0;
+	while (temp != head_node)
+	{
+		idx++;
+		temp = temp->next;
+	}
+
+	while (stack_A->head->next->value != 0)
+	{
+		if (idx <= stack_A->size/2)
+			cmd_ra(stack_A);
+		else
+			cmd_rra(stack_A);
+	}
+}
+
 void solution_commander (t_list * stack_A, t_list * stack_B) // b가 비워질 때 까지 도는 함수
 {
-	int min_cmd[8]; // min 값
-	
+	int min_cmd[8];
+
 	stack_A_B_setting(stack_A, stack_B);
 	while (stack_B->size != 0)
 	{
 		cmd_reset(min_cmd);
-		printf("call 1\n");
 		one_round_count(stack_A, stack_B, min_cmd);
-		printf("call 2\n");
 		cmd_call(stack_A, stack_B, min_cmd);
-		printf("call 3\n");
 		cmd_pa(stack_B, stack_A);
-		printf("call Pa\n");
-		print_list(stack_A);
-		print_list(stack_B);
+		// print_list(stack_A);
+		// print_list(stack_B);
 	}
-	while (stack_A->head->next->value != 0)
-		cmd_rra(stack_A);
+	last_stack_A_sort(stack_A);
 }
 
 /*

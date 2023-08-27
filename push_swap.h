@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/26 22:39:31 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/27 21:30:19 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ void clear_list(t_list * list);
 void fclear_list(t_list * list);
 
 //input_utils.c
-int numbers_space_check(char c);
+// int numbers_space_check(char c);
+int word_check (char * str, int i);
+int str_check (char * argv);
 int split_ready(int argc, char ** argv);
 int atoi_ready(int argc, char ** argv, char ** split[]);
 int input_ready(int argc, char ** argv, char ** split[], t_list * list);
@@ -120,14 +122,15 @@ void stack_A_in_three_node (t_list * stack_A);
 void stack_A_in_four_node (t_list * stack_A, t_list * stack_B);
 int stack_A_size_too_small (t_list * stack_A, t_list * stack_B);
 void stack_A_B_setting(t_list * stack_A, t_list * stack_B);
-void stack_A_round (t_list * stack_A, t_node * B_temp, int * temp_total);
-void stack_B_round (t_list * stack_A, t_list * stack_B, t_node * temp, int * temp_total);
+void stack_A_round (t_list * stack_A, int * temp_total);
+void stack_B_round (t_list * stack_B, t_node * temp, int * temp_total, int idx);
 void rr_compare (int * temp_total);
 void rrr_compare (int * temp_total);
 void cmd_count (int * temp_total);
 void copy_cmd(int * temp_total, int * min_cmd);
 void cnt_optimization (int * temp_total, int * min_cmd);
 void cmd_reset (int * arr);
+void last_stack_A_sort (t_list * stack_A);
 void one_round_count (t_list * stack_A, t_list * stack_B, int * min_cmd);
 void cmd_call (t_list * stack_A, t_list * stack_B, int * min_cmd);
 void solution_commander (t_list * stack_A, t_list * stack_B);

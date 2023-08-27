@@ -6,23 +6,65 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:19:42 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/21 20:45:00 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/27 21:28:20 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int numbers_space_check(char c)
+// int numbers_space_check(char c)
+// {
+//     if (c >= '0' && c <= '9')
+//         return success;
+// 	else if (c == '-' || c == '+' || c == ' ')
+// 	{
+// 		return success;
+// 	}
+//     return failed;
+// }
+int word_check (char * str, int i)
 {
-    if (c >= '0' && c <= '9')
-        return success;
-	else if (c == '-' || c == '+' || c == ' ')
+	int temp;
+
+	temp = i;
+	if (str[temp] == '\0')
+		return failed;
+	if (str[temp] == '+' || str[temp] == '-')
+		temp++;
+	if (str[temp] == ' ' || str[temp] == '+' || str[temp] == '-' || str[temp] == '\0')
+		return failed;
+	while (str[temp] != ' ' && str[temp] != '\0')
 	{
-		return success;
+		if (str[temp] >= '0' && str[temp] <= '9')
+			temp++;
+		else
+			return failed;
 	}
-    return failed;
+	return temp;
 }
-int split_ready(int argc, char ** argv)
+
+int str_check (char * argv)
+{
+	int i;
+	int check;
+
+	i = 0;
+	while (argv[i])
+	{
+		check = 0;
+		while(argv[i] == ' ')
+			i++;
+		check = word_check(argv, i);
+		if (check == 0)
+			return failed;
+		else
+			i = check;
+		i++;
+	}
+	return success;
+}
+
+int split_ready(char ** argv)
 {
     int i;
     int j;
@@ -30,21 +72,13 @@ int split_ready(int argc, char ** argv)
 
     i = 1;
 	cnt = 0;
-    if (argc == 1)
-        return failed;
     while (argv[i])
     {
         j = 0;
         if (argv[i][j] == '\0')
             return failed;
-        while (argv[i][j])
-        {
-			if (!numbers_space_check(argv[i][j]))
-				return failed;
-			if (argv[i][j+1] == '-' || argv[i][j+1] == '+')
-				return failed;
-			j++;
-        }
+		if (!str_check(argv[i]))
+			return failed;
         i++;
     }
     return success;

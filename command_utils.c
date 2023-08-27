@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:39:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/22 17:08:15 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/27 17:45:51 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,12 @@ void cmd_rb (t_list * stack_b) // index 0 -> index last
 
 void cmd_rr (t_list * stack_a, t_list * stack_b) // ra, rb
 {
-	cmd_ra(stack_a);
-	cmd_rb(stack_b);
+	if (stack_a->size < 2)
+		return;
+	stack_a->head->next = stack_a->head->next->next;
+	if (stack_b->size < 2)
+		return;
+	stack_b->head->next = stack_b->head->next->next;
 	write(1, "rr\n", 3);
 }
 
@@ -121,7 +125,11 @@ void cmd_rrb (t_list * stack_b) // index last -> index 0
 
 void cmd_rrr (t_list * stack_a, t_list * stack_b) //rra, rrb
 {
-	cmd_rra(stack_a);
-	cmd_rrb(stack_b);
+	if (stack_a->size < 2)
+		return;
+	stack_a->head->next = stack_a->head->next->prev;
+	if (stack_b->size < 2)
+		return;
+	stack_b->head->next = stack_b->head->next->prev;
 	write(1, "rrr\n", 4);
 }
