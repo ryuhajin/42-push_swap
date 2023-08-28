@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:00:16 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/27 18:12:25 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 18:00:29 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int stack_A_size_too_small (t_list * stack_A, t_list * stack_B)
 		stack_A_in_three_node(stack_A);
 	else
 		stack_A_in_four_node(stack_A, stack_B);
+	fclear_list(stack_A);
+	fclear_list(stack_B);
 	return 0;
 }
 
@@ -104,15 +106,11 @@ void stack_A_B_setting (t_list * stack_A, t_list * stack_B)
 	int			min_pivot;
 	int			max_pivot;
 
-	printf("call setting\n");
 	min_pivot = (max_val - except) / 3 + except - 1; // 3
 	max_pivot = (max_val - except) / 3 * 2 + except - 1; // 4
 	move_range_to_b(min_val, min_pivot, stack_A, stack_B); // (2, 3]
-	printf("call setting min\n");
 	move_range_to_b(min_pivot, max_pivot, stack_A, stack_B);// (3, 4]
-	printf("call setting middle\n");
 	move_range_to_b(max_pivot, max_val - 1 - 1, stack_A, stack_B); // (4, 5]
-	printf("call setting max\n");
 	find_max_idx(stack_A, stack_B);
 	stack_A_in_three_node (stack_A);
 	cmd_pa(stack_B, stack_A);
@@ -352,6 +350,8 @@ void solution_commander (t_list * stack_A, t_list * stack_B) // b가 비워질 �
 		// print_list(stack_B);
 	}
 	last_stack_A_sort(stack_A);
+	fclear_list(stack_B);
+	fclear_list(stack_A);
 }
 
 /*

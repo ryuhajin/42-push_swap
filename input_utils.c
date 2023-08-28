@@ -6,85 +6,16 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:19:42 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/27 21:28:20 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 20:39:14 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// int numbers_space_check(char c)
-// {
-//     if (c >= '0' && c <= '9')
-//         return success;
-// 	else if (c == '-' || c == '+' || c == ' ')
-// 	{
-// 		return success;
-// 	}
-//     return failed;
-// }
-int word_check (char * str, int i)
-{
-	int temp;
+// 4->5->1->2  // 2->1->5->4 // 
 
-	temp = i;
-	if (str[temp] == '\0')
-		return failed;
-	if (str[temp] == '+' || str[temp] == '-')
-		temp++;
-	if (str[temp] == ' ' || str[temp] == '+' || str[temp] == '-' || str[temp] == '\0')
-		return failed;
-	while (str[temp] != ' ' && str[temp] != '\0')
-	{
-		if (str[temp] >= '0' && str[temp] <= '9')
-			temp++;
-		else
-			return failed;
-	}
-	return temp;
-}
 
-int str_check (char * argv)
-{
-	int i;
-	int check;
-
-	i = 0;
-	while (argv[i])
-	{
-		check = 0;
-		while(argv[i] == ' ')
-			i++;
-		check = word_check(argv, i);
-		if (check == 0)
-			return failed;
-		else
-			i = check;
-		i++;
-	}
-	return success;
-}
-
-int split_ready(char ** argv)
-{
-    int i;
-    int j;
-	int cnt;
-
-    i = 1;
-	cnt = 0;
-    while (argv[i])
-    {
-        j = 0;
-        if (argv[i][j] == '\0')
-            return failed;
-		if (!str_check(argv[i]))
-			return failed;
-        i++;
-    }
-    return success;
-}
-
-int atoi_ready(int argc, char ** argv, char ** split[])
+int split_start(int argc, char ** argv, char ** splits[])
 {
 	char ** temp;
     int i;
@@ -97,30 +28,116 @@ int atoi_ready(int argc, char ** argv, char ** split[])
         temp = ft_split(argv[i], ' ');
         if(temp == NULL)
             return failed;
-		split[j] = temp;
+		splits[j] = temp;
         i++;
         j++;
     }
-    split[j] = NULL;
+    splits[j] = NULL;
     return success;
 }
-
-int input_ready(int argc, char ** argv, char ** split[], t_list * list)
+int number_check (char * str)
 {
-    if (split_ready(argc, argv))
-    {
-		printf("split ok\n");
-        if (atoi_ready(argc, argv, split))
-        {
-			printf("atoi ok\n");
-            if (list_ready(argc, split, list))
-			{
-				printf("list ok\n");
-				// print_list(list);
-				return success;
-			}
-        }
-    }
-	printf("input error\n");
-    return failed;
+	int i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return failed;
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			i++;
+		else
+			return failed;
+	}
+	return success;
 }
+
+void all_clear (int argc, char ** splits[], t_list * stack_A, t_list * stack_B)
+{
+	split_clear(argc, splits);
+	fclear_list(stack_A);
+	fclear_list(stack_B);
+}
+
+int search_same_value(t_list * list, int value)
+{
+	if (list->size == 0)
+		return success;
+	if (search_node(list, value))
+		return failed;
+	return success;
+}
+
+int same_range_check (char * str, t_list * stack_A)
+{
+	long long temp;
+	
+	temp = ft_atoi(str);
+	if (temp < INT_MIN || INT_MAX < temp)
+		return failed;
+	else if (!search_same_value(stack_A, (int)temp))
+		return failed;
+	push_Back(stack_A, (int)temp);
+	return success;
+}
+
+int atoi_start (int argc, char ** splits[], t_list * stack_A)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (splits[i])
+	{
+		j = 0;
+		while (splits[i][j])
+		{
+			if (!number_check(splits[i][j]))
+				return failed;
+			if (!same_range_check(splits[i][j], stack_A))
+				return failed;
+			j++;
+		}
+		i++;
+	}
+	split_clear(argc, splits);
+	return success;
+}
+
+int input_check (int argc, char * argv[], t_list * stack_A, t_list * stack_B)
+{
+	char ** splits[argc -1];
+	
+	if (split_start(argc, argv, splits))
+	{
+		if (atoi_start(argc, splits, stack_A))
+		{
+			return success;
+		}
+	}
+	all_clear(argc, splits, stack_A, stack_B);
+	return failed;
+}
+
+
+// int input_ready(int argc, char ** argv, char ** split[], t_list * list)
+// {
+//     if (split_ready(argc, argv))
+//     {
+// 		printf("split ok\n");
+//         if (atoi_ready(argc, argv, split))
+//         {
+// 			printf("atoi ok\n");
+//             if (list_ready(argc, split, list))
+// 			{
+// 				printf("list ok\n");
+// 				// print_list(list);
+// 				return success;
+// 			}
+//         }
+//     }
+// 	printf("input error\n");
+//     return failed;
+// }

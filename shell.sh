@@ -1,11 +1,11 @@
 CNT=100
-LIMIT=5500
+LIMIT=700
 INDEX=0
 ITER=100
 SUM=0
 NUM_OVER=0
 MAX=$LIMIT
-ARG=`jot -r $CNT 0 2147483647 | tr "\n" " "`
+ARG=`jot -r $CNT -2147483648 2147483647 | tr "\n" " "`
 NUM=`./push_swap $ARG | wc -l`
 
 while [ $INDEX -lt $ITER ]

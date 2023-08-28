@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:26:11 by dayou             #+#    #+#             */
-/*   Updated: 2023/07/26 18:02:01 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 17:50:30 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,41 +132,3 @@ char	**ft_split(char const *str, char c)
 	copy_words(split, str, c, size);
 	return (split);
 }
-
-/* 
-
-void	check_leak(void)
-{
-	system("leaks --list a.out");
-}
-
-int main(int argc, char ** argv)
-{
-	char ** split;
-	char ** splits[argc-1];
-	int i = 1;
-	int j = 0;
-	while(i < argc)
-	{
-		split = ft_split(argv[i], ' ');
-		splits[j] = split;
-		i++;
-		j++;
-	}
-	splits[j] = NULL;
-	i = 0;
-	j = 0;
-	while(i < argc -1)
-	{	
-		j = 0;
-		while(splits[i][j])
-		{
-			printf("%s\n", splits[i][j]);
-			j++;
-		}
-		i++;
-	}
-	split_clear(argc, splits);
-	atexit(check_leak);
-}
-*/

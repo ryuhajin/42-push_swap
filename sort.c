@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:21:37 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/24 21:54:39 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 17:48:38 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int stack_A_sort (t_list * stack_A)
     int i;
 
 	i = 0;
+	stack_A->idx_size = stack_A->size;
     temp = stack_A->head->next;
     while (i < stack_A->size)
     {
@@ -34,12 +35,12 @@ int stack_A_sort (t_list * stack_A)
         i++;
         temp = temp->next;
     }
-	// printf_sort(arr, stack_A->size);
-	// printf("sort start\n");
 	quick_sort(arr, 0, (stack_A->size)-1);
-	// printf_sort(arr, stack_A->size);
 	if (sort_check(arr, stack_A))
-		return failed; // 0 == 정렬되어 있으면 그리디 x 바로 종료
+	{	
+		fclear_list(stack_A);
+		return failed;
+	} // 0 == 정렬되어 있으면 그리디 x 바로 종료
 	stack_A_indexing (arr, stack_A);
 	return success; // 1 == 그리디 시작
 }

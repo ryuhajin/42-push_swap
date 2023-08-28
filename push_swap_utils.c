@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:32:18 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/24 16:22:16 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 19:05:56 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,19 +217,3 @@ void fclear_list(t_list * list)
     list->head = NULL;
     free(list);
 }
-
-// void	check_leak(void)
-// {
-// 	system("leaks --list a.out");
-// }
-
-// int main(void)
-// {
-//     t_list * list = make_list();
-//     push_Back(list, 1);
-//     push_Back(list ,2);
-//     print_list(list);
-//     // fclear_list(list);
-//     // atexit(check_leak);
-//     return 0;
-// }

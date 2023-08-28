@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/27 21:30:19 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 19:48:04 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ void fclear_list(t_list * list);
 
 //input_utils.c
 // int numbers_space_check(char c);
-int word_check (char * str, int i);
-int str_check (char * argv);
-int split_ready(int argc, char ** argv);
-int atoi_ready(int argc, char ** argv, char ** split[]);
-int input_ready(int argc, char ** argv, char ** split[], t_list * list);
+int split_start(int argc, char ** argv, char ** splits[]);
+int number_check (char * str);
+void all_clear (int argc, char ** splits[], t_list * stack_A, t_list * stack_B);
+int search_same_value(t_list * list, int value);
+int same_range_check (char * str, t_list * stack_A);
+int atoi_start (int argc, char ** splits[], t_list * stack_A);
+int input_check (int argc, char * argv[], t_list * stack_A, t_list * stack_B);
 
 //input_utils2.c
 void split_free(char ** split);
@@ -88,11 +90,9 @@ char	**ft_split(char const *str, char c);
 
 //input_utils3.c
 long long	ft_atoi(const char *str);
-int search_same_value(t_list * list, int value);
-int list_ready(int argc, char ** split[], t_list * list);
 
 //command_utils.c
-int make_stack (t_list * stack_A, t_list * stack_B);
+int make_stack (t_list ** stack_A, t_list ** stack_B);
 void cmd_sa (t_list * stack_A);
 void cmd_sb (t_list * stack_B);
 void cmd_ss (t_list * stack_a, t_list * stack_b);

@@ -6,11 +6,11 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:40:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/27 22:22:09 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 21:40:57 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <stdio.h> // 나중에 삭제
 #include "push_swap.h"
 
 // void	check_leak(void)
@@ -23,38 +23,26 @@
 
 int main(int argc, char * argv[])
 {
-    char ** split[argc -1];
     t_list * stack_A;
 	t_list * stack_B;
 
 	if (argc == 1)
 		return 0;
-	// if (!make_list(stack_A, stack_B))
-	// {
-	// 	list_clear();
-	// 	return;
-	// }
-	stack_A = make_list();
-	stack_B = make_list();
-	// if (!make_stack(stack_A, stack_B))
-	// 	return 0;
-    if (!input_ready(argc, argv, split, stack_A))
+	if (!make_stack(&stack_A, &stack_B))
+		return 0;
+    if (!input_check(argc, argv, stack_A, stack_B))
 	{
-		write(1, "Error\n", 6); //표준출력으로 출력하기.
+		write(1, "Error\n", 6);
 		return 0;
 	}
-	//list->size == 2 / == 3 hard cord
-	stack_A->idx_size = stack_A->size;
-	// print_list(stack_A);
 	if (!stack_A_sort(stack_A))
+	{
+		fclear_list(stack_B);
 		return 0;
+	}
 	if (!stack_A_size_too_small(stack_A, stack_B))
 		return 0;
 	solution_commander(stack_A, stack_B);
-	fclear_list(stack_B);
-	fclear_list(stack_A);
-	// print_list(stack_B);
-	// fclear_list(list);
-    // atexit(check_leak);
+	// check_leak();
     return 0;
 }

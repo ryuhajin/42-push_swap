@@ -6,18 +6,23 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:39:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/27 17:45:51 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/28 19:44:57 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-int make_stack (t_list * stack_A, t_list * stack_B) //stack b make
+int make_stack (t_list ** stack_A, t_list ** stack_B) //stack b make
 {
-	stack_A = make_list();
-	stack_B = make_list();
-	if (stack_A == NULL || stack_B == NULL)
+	*stack_A = make_list();
+	if (stack_A == NULL)
 		return failed;
+	*stack_B = make_list();
+	if (stack_B == NULL)
+	{
+		fclear_list(*stack_A);
+		return failed;
+	}
 	return success;
 }
 
