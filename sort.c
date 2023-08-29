@@ -6,11 +6,11 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:21:37 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/28 17:48:38 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/29 22:35:14 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+# include "./headers/push_swap.h"
 
 void ft_swap (int * start, int * end)
 {
@@ -69,18 +69,6 @@ void quick_sort (int * arr, int start, int end)
 	}
 	quick_sort(arr, start, j-1);
 	quick_sort(arr, j+1, end);
-}
-
-void printf_sort (int * arr, int size)
-{
-	int i;
-	i = 0;
-	while (i < size)
-	{	
-		printf("%d ", arr[i]);
-		i++;
-	}
-	printf("\n");
 }
 
 int sort_check (int * arr, t_list * stack_A)

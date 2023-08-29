@@ -6,25 +6,11 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:39:20 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/28 19:44:57 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/29 20:26:06 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
-
-int make_stack (t_list ** stack_A, t_list ** stack_B) //stack b make
-{
-	*stack_A = make_list();
-	if (stack_A == NULL)
-		return failed;
-	*stack_B = make_list();
-	if (stack_B == NULL)
-	{
-		fclear_list(*stack_A);
-		return failed;
-	}
-	return success;
-}
+# include "./headers/push_swap.h"
 
 void cmd_sa (t_list * stack_A) // stack_A a top index 0, 1 chage
 {
@@ -83,58 +69,4 @@ void cmd_pb (t_list * stack_a, t_list * stack_b) // a top -> b top
 	stack_b->head->next = stack_a_top;
 	remove_node(stack_a, stack_a->head->next);
 	write(1, "pb\n", 3);
-}
-
-void cmd_ra (t_list * stack_a) // index 0 -> index last
-{
-	if (stack_a->size < 2)
-		return;
-	stack_a->head->next = stack_a->head->next->next;
-	write(1, "ra\n", 3);
-}
-
-void cmd_rb (t_list * stack_b) // index 0 -> index last
-{
-	if (stack_b->size < 2)
-		return;
-	stack_b->head->next = stack_b->head->next->next;
-	write(1, "rb\n", 3);
-}
-
-void cmd_rr (t_list * stack_a, t_list * stack_b) // ra, rb
-{
-	if (stack_a->size < 2)
-		return;
-	stack_a->head->next = stack_a->head->next->next;
-	if (stack_b->size < 2)
-		return;
-	stack_b->head->next = stack_b->head->next->next;
-	write(1, "rr\n", 3);
-}
-
-void cmd_rra (t_list * stack_a) // index last -> index 0
-{
-	if (stack_a->size < 2)
-		return;
-	stack_a->head->next = stack_a->head->next->prev;
-	write(1, "rra\n", 4);
-}
-
-void cmd_rrb (t_list * stack_b) // index last -> index 0
-{
-	if (stack_b->size < 2)
-		return;
-	stack_b->head->next = stack_b->head->next->prev;
-	write(1, "rrb\n", 4);
-}
-
-void cmd_rrr (t_list * stack_a, t_list * stack_b) //rra, rrb
-{
-	if (stack_a->size < 2)
-		return;
-	stack_a->head->next = stack_a->head->next->prev;
-	if (stack_b->size < 2)
-		return;
-	stack_b->head->next = stack_b->head->next->prev;
-	write(1, "rrr\n", 4);
 }
