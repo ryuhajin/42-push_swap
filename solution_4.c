@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:31:40 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 22:40:25 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 15:46:23 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void one_round_count (t_list * stack_A, t_list * stack_B, int * min_cmd)
 
 	temp = stack_B->head->next;
 	idx = 0;
-	// printf("call one_r_c\n");
 	while (idx < stack_B->size)
 	{
 		temp_total[0] = temp->value;

@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 19:54:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 21:04:33 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 14:19:40 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ void stack_A_round (t_list * stack_A, int * temp_total);
 void stack_B_round (t_list * stack_B, t_node * temp, int * temp_total, int idx);
 
 //solution 3 //
-void rr_compare (int * temp_total);
-void rrr_compare (int * temp_total);
+void r_compare (int * temp_total, int idx);
 void cmd_count (int * temp_total);
 void copy_cmd(int * temp_total, int * min_cmd);
 void cnt_optimization (int * temp_total, int * min_cmd);

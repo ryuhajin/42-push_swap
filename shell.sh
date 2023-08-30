@@ -1,5 +1,5 @@
-CNT=3
-LIMIT=100
+CNT=500
+LIMIT=0
 INDEX=0
 ITER=100
 SUM=0
@@ -26,4 +26,3 @@ echo "$NUM_OVER overred operations for $ITER times (Average: `expr $SUM / $ITER`
 # if [ $NUM_OVER -gt 0 ]; then
 # echo "Biggest operation number : $MAX"
 # echo "fix it!!!!!!!!!!"
-fi

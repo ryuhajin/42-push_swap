@@ -6,7 +6,7 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:00:16 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 22:41:48 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 14:49:26 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,10 @@ void stack_A_in_two_node (t_list * stack_A)
 
 void stack_A_in_three_node (t_list * stack_A)
 {
-	if (stack_A->size < 3 || stack_A->size > 3)
-		return;
-	if (stack_A->head->next->value == 0)
+	if (stack_A->head->next->value == 0 && stack_A->head->next->next->value == 2)
 	{
-		if (stack_A->head->next->next->value == 2)
-		{
-			cmd_sa(stack_A);
-			cmd_ra(stack_A);
-		}
+		cmd_sa(stack_A);
+		cmd_ra(stack_A);
 	}
 	else if (stack_A->head->next->value == 1)
 	{
@@ -48,25 +43,38 @@ void stack_A_in_three_node (t_list * stack_A)
 	}
 }
 
-void stack_A_in_four_node (t_list * stack_A, t_list * stack_B)
+void stack_A_in_four_or_five(t_list * stack_A, t_list * stack_B)
 {
-	find_max_idx(stack_A, stack_B);
-	stack_A_in_three_node(stack_A);
-	cmd_pa(stack_B, stack_A);
-	cmd_ra(stack_A);
+	if (stack_A->size == 4)
+	{	
+		find_max_idx(stack_A, stack_B);
+		stack_A_in_three_node(stack_A);
+		cmd_pa(stack_B, stack_A);
+		cmd_ra(stack_A);
+	}
+	else if (stack_A->size == 5)
+	{
+		move_range_to_b(2, 4, stack_A, stack_B);
+		if(stack_B->head->next->value < stack_B->head->next->prev->value)
+			cmd_sb(stack_B);
+		stack_A_in_three_node(stack_A);
+		cmd_pa(stack_B, stack_A);
+		cmd_pa(stack_B, stack_A);
+		cmd_ra(stack_A);
+		cmd_ra(stack_A);
+	}
 }
 
 int stack_A_size_too_small (t_list * stack_A, t_list * stack_B)
 {
-	if (stack_A->size > 4)
-		return 1;
+	if (stack_A->size > 5)
+		return success;
 	else if (stack_A->size == 2)
 		stack_A_in_two_node(stack_A);
 	else if (stack_A->size == 3)
 		stack_A_in_three_node(stack_A);
-	else
-		stack_A_in_four_node(stack_A, stack_B);
-	fclear_list(stack_A);
-	fclear_list(stack_B);
-	return 0;
+	else if (stack_A->size == 4 || stack_A->size == 5)
+		stack_A_in_four_or_five(stack_A, stack_B);
+	fclear_2_lists(stack_A, stack_B);
+	return failed;
 }

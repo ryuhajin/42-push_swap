@@ -6,53 +6,32 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:31:44 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 22:42:35 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 15:41:34 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./headers/push_swap.h"
 
-void rr_compare (int * temp_total)
+void r_compare (int * temp_total, int idx) //rra[2], rrb[4], rrr[6]
 {
-	if (temp_total[1] == temp_total[3]) //ra[0], rb[3], rr[5]
+	//idx = 2;
+	if (temp_total[idx] == temp_total[idx+2])
 	{
-		temp_total[5] = temp_total[1];
-		temp_total[1] = 0;
-		temp_total[3] = 0;
+		temp_total[idx+4] = temp_total[idx];
+		temp_total[idx] = 0;
+		temp_total[idx+2] = 0;
 	}
-	else if (temp_total[1] > temp_total[3])
+	else if (temp_total[idx] > temp_total[idx+2])
 	{
-		temp_total[5] = temp_total[3];
-		temp_total[1] = temp_total[1] - temp_total[3];
-		temp_total[3] = 0;
+		temp_total[idx+4] = temp_total[idx+2];
+		temp_total[idx] = temp_total[idx] - temp_total[idx+2];
+		temp_total[idx+2] = 0;
 	}
 	else
 	{	
-		temp_total[5] = temp_total[1];
-		temp_total[3] = temp_total[3] - temp_total[1];
-		temp_total[1] = 0;
-	}	
-}
-
-void rrr_compare (int * temp_total) //rra[2], rrb[4], rrr[6]
-{
-	if (temp_total[2] == temp_total[4])
-	{
-		temp_total[6] = temp_total[2];
-		temp_total[2] = 0;
-		temp_total[4] = 0;
-	}
-	else if (temp_total[2] > temp_total[4])
-	{
-		temp_total[6] = temp_total[4];
-		temp_total[2] = temp_total[2] - temp_total[4];
-		temp_total[4] = 0;
-	}
-	else
-	{	
-		temp_total[6] = temp_total[2];
-		temp_total[4] = temp_total[4] - temp_total[2];
-		temp_total[2] = 0;
+		temp_total[idx+4] = temp_total[idx];
+		temp_total[idx+2] = temp_total[idx+2] - temp_total[idx];
+		temp_total[idx] = 0;
 	}	
 }
 
@@ -85,8 +64,8 @@ void copy_cmd(int * temp_total, int * min_cmd)
 
 void cnt_optimization (int * temp_total, int * min_cmd)
 {
-	rr_compare(temp_total);
-	rrr_compare(temp_total);
+	r_compare(temp_total, 1);
+	r_compare(temp_total, 2);
 	cmd_count(temp_total);
 	if (temp_total[7] < min_cmd[7])
 		copy_cmd(temp_total, min_cmd);
