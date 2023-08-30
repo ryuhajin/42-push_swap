@@ -6,18 +6,11 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:50:25 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 20:26:45 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 20:20:51 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./headers/push_swap.h"
-
-void find_max_idx (t_list * stack_A, t_list * stack_B)
-{
-	while (stack_A->head->next->value != stack_A->idx_size -1)
-		cmd_ra(stack_A);
-	cmd_pb(stack_A, stack_B);
-}
+#include "./headers/push_swap.h"
 
 void	move_range_to_b(int min, int max, t_list *stack_a, t_list *stack_b)
 {
@@ -29,85 +22,86 @@ void	move_range_to_b(int min, int max, t_list *stack_a, t_list *stack_b)
 	{
 		if (min < stack_a->head->next->value
 			&& stack_a->head->next->value <= max)
-			{
-				cmd_pb(stack_a, stack_b);
-				++move_cnt;
-			}
+		{
+			cmd_pb(stack_a, stack_b);
+			++move_cnt;
+		}
 		else
 			cmd_ra(stack_a);
 	}
 }
 
-void stack_A_B_setting (t_list * stack_A, t_list * stack_B)
+void	stack_a_b_setting(t_list *stack_a, t_list *stack_b)
 {
 	const int	min_val = 2;
 	const int	except = 4;
-	const int	max_val = stack_A->size;
+	const int	max_val = stack_a->size;
 	int			min_pivot;
 	int			max_pivot;
 
-	min_pivot = (max_val - except) / 3 + except - 1; // 3
-	max_pivot = (max_val - except) / 3 * 2 + except - 1; // 4
-	move_range_to_b(min_val, min_pivot, stack_A, stack_B); // (2, 3]
-	move_range_to_b(min_pivot, max_pivot, stack_A, stack_B);// (3, 4]
-	move_range_to_b(max_pivot, max_val - 1 - 1, stack_A, stack_B); // (4, 5]
-	find_max_idx(stack_A, stack_B);
-	stack_A_in_three_node (stack_A);
-	cmd_pa(stack_B, stack_A);
+	min_pivot = (max_val - except) / 3 + except - 1;
+	max_pivot = (max_val - except) / 3 * 2 + except - 1;
+	move_range_to_b(min_val, min_pivot, stack_a, stack_b);
+	move_range_to_b(min_pivot, max_pivot, stack_a, stack_b);
+	move_range_to_b(max_pivot, max_val - 1 - 1, stack_a, stack_b);
+	find_max_idx(stack_a, stack_b);
+	stack_a_in_three_node(stack_a);
+	cmd_pa(stack_b, stack_a);
 }
 
-void stack_A_round (t_list * stack_A, int * temp_total) //idx(val) < stack_A->idx_size / 2 == rrb
+void	stack_a_round(t_list *stack_a, int *temp_total)
 {
-	t_node * A_temp;
-	int idx;
+	t_node	*a_temp;
+	int		idx;
 
 	idx = 0;
-	A_temp = stack_A->head->next;
-	temp_total[1] = 0; //ra
-	temp_total[2] = 0; //rra
-	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
-	if (A_temp->value > temp_total[0] && A_temp->prev->value < temp_total[0])
-		return;
-	while (!(A_temp->value < temp_total[0] && A_temp->next->value > temp_total[0]))
+	a_temp = stack_a->head->next;
+	temp_total[1] = 0;
+	temp_total[2] = 0;
+	if (a_temp->value > temp_total[0] && a_temp->prev->value < temp_total[0])
+		return ;
+	while (!(a_temp->value < temp_total[0]
+			&& a_temp->next->value > temp_total[0]))
 	{
 		idx++;
-		A_temp = A_temp->next;
+		a_temp = a_temp->next;
 	}
-	while (A_temp != stack_A->head->next->prev)
+	stack_a_round2(stack_a, temp_total, a_temp, idx);
+}
+
+void	stack_a_round2(t_list *stack_a, int *temp_total,
+		t_node *a_temp, int idx)
+{
+	while (a_temp != stack_a->head->next->prev)
 	{
-		if (idx < stack_A->size / 2)
-		{	
-			A_temp = A_temp->prev;
+		if (idx < stack_a->size / 2)
+		{
+			a_temp = a_temp->prev;
 			temp_total[1]++;
-			//cmd_ra(stack_A);
 		}
 		else
-		{	
-			A_temp = A_temp->next;
+		{
+			a_temp = a_temp->next;
 			temp_total[2]++;
-			//cmd_rra(stack_A);
 		}
 	}
 }
 
-void stack_B_round (t_list * stack_B, t_node * temp, int * temp_total, int idx)
+void	stack_b_round(t_list *stack_b, t_node *temp, int *temp_total, int idx)
 {
 	temp_total[3] = 0;
 	temp_total[4] = 0;
-	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
-	while (temp != stack_B->head->next)
+	while (temp != stack_b->head->next)
 	{
-		if (idx < stack_B->size / 2)
+		if (idx < stack_b->size / 2)
 		{
 			temp = temp->prev;
 			temp_total[3]++;
-			//cmd_rb(stack_B);
 		}
 		else
 		{
 			temp = temp->next;
 			temp_total[4]++;
-			//cmd_rrb(stack_B);
 		}
 	}
 }

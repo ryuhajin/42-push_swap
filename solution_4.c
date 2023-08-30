@@ -6,110 +6,102 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:31:40 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/30 15:46:23 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:04:53 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./headers/push_swap.h"
 
-# include "./headers/push_swap.h"
-
-void cmd_reset (int * arr)
+void	cmd_reset(int *arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
-
 	while (i++ < 8)
 	{
 		arr[i] = INT_MAX;
 	}
 }
 
-void one_round_count (t_list * stack_A, t_list * stack_B, int * min_cmd)
+void	one_round_count(t_list *stack_a, t_list *stack_b, int *min_cmd)
 {
-	t_node * temp;
-	
-	int temp_total[8]; // temp 값
-	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
-	int idx;
-	
+	t_node	*temp;
+	int		idx;
+	int		temp_total[8];
 
-	temp = stack_B->head->next;
+	temp = stack_b->head->next;
 	idx = 0;
-	while (idx < stack_B->size)
+	while (idx < stack_b->size)
 	{
 		temp_total[0] = temp->value;
-		stack_B_round(stack_B, temp, temp_total, idx);
-		stack_A_round(stack_A, temp_total);
+		stack_b_round(stack_b, temp, temp_total, idx);
+		stack_a_round(stack_a, temp_total);
 		cnt_optimization(temp_total, min_cmd);
-		temp = (search_node(stack_B, temp_total[0]))->next;
+		temp = (search_node(stack_b, temp_total[0]))->next;
 		idx++;
 	}
 }
 
-void cmd_call (t_list * stack_A, t_list * stack_B, int * min_cmd)
+void	cmd_call(t_list *stack_a, t_list *stack_b, int *min_cmd)
 {
-	int i;
-	// index[0] ra[1] rra[2] rb[3] rrb[4] rr[5] rrr[6] cmd_cnt[7]
+	int	i;
+
 	i = 0;
 	while (i++ < min_cmd[5])
-		cmd_rr(stack_A, stack_B);
+		cmd_rr(stack_a, stack_b);
 	i = 0;
 	while (i++ < min_cmd[1])
-		cmd_ra(stack_A);
+		cmd_ra(stack_a);
 	i = 0;
 	while (i++ < min_cmd[3])
-		cmd_rb(stack_B);
+		cmd_rb(stack_b);
 	i = 0;
 	while (i++ < min_cmd[6])
-		cmd_rrr(stack_A, stack_B);
+		cmd_rrr(stack_a, stack_b);
 	i = 0;
 	while (i++ < min_cmd[2])
-		cmd_rra(stack_A);
+		cmd_rra(stack_a);
 	i = 0;
 	while (i++ < min_cmd[4])
-		cmd_rrb(stack_B);
+		cmd_rrb(stack_b);
 }
 
-void last_stack_A_sort (t_list * stack_A)
+void	last_stack_a_sort(t_list *stack_a)
 {
-	t_node * temp;
-	t_node * head_node;
-	int idx;
+	t_node	*temp;
+	t_node	*head_node;
+	int		idx;
 
-	temp = stack_A->head->next;
-	head_node = search_node(stack_A, 0);
+	temp = stack_a->head->next;
+	head_node = search_node(stack_a, 0);
 	idx = 0;
 	while (temp != head_node)
 	{
 		idx++;
 		temp = temp->next;
 	}
-
-	while (stack_A->head->next->value != 0)
+	while (stack_a->head->next->value != 0)
 	{
-		if (idx <= stack_A->size/2)
-			cmd_ra(stack_A);
+		if (idx <= stack_a->size / 2)
+			cmd_ra(stack_a);
 		else
-			cmd_rra(stack_A);
+			cmd_rra(stack_a);
 	}
 }
 
-void solution_commander (t_list * stack_A, t_list * stack_B) // b가 비워질 때 까지 도는 함수
+void	solution_commander(t_list *stack_a, t_list *stack_b)
 {
-	int min_cmd[8];
+	int	min_cmd[8];
 
-	stack_A_B_setting(stack_A, stack_B);
-	while (stack_B->size != 0)
+	stack_a_b_setting(stack_a, stack_b);
+	while (stack_b->size != 0)
 	{
 		cmd_reset(min_cmd);
-		one_round_count(stack_A, stack_B, min_cmd);
-		cmd_call(stack_A, stack_B, min_cmd);
-		cmd_pa(stack_B, stack_A);
-		// print_list(stack_A);
-		// print_list(stack_B);
+		one_round_count(stack_a, stack_b, min_cmd);
+		cmd_call(stack_a, stack_b, min_cmd);
+		cmd_pa(stack_b, stack_a);
 	}
-	last_stack_A_sort(stack_A);
-	fclear_list(stack_B);
-	fclear_list(stack_A);
+	last_stack_a_sort(stack_a);
+	fclear_list(stack_b);
+	fclear_list(stack_a);
 }

@@ -6,56 +6,60 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:21:37 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 22:35:14 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:29:42 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./headers/push_swap.h"
+#include "./headers/push_swap.h"
 
-void ft_swap (int * start, int * end)
+void	ft_swap(int *start, int *end)
 {
-	int temp;
+	int	temp;
+
 	temp = *start;
 	*start = *end;
 	*end = temp;
 }
 
-int stack_A_sort (t_list * stack_A)
+int	stack_a_sort(t_list *stack_a)
 {
-	int arr[stack_A->size];
-    t_node * temp;
-    int i;
+	int		*arr;
+	t_node	*temp;
+	int		i;
 
+	arr = (int *)malloc(sizeof(int) * stack_a->size);
 	i = 0;
-	stack_A->idx_size = stack_A->size;
-    temp = stack_A->head->next;
-    while (i < stack_A->size)
-    {
-        arr[i] = temp->value;
-        i++;
-        temp = temp->next;
-    }
-	quick_sort(arr, 0, (stack_A->size)-1);
-	if (sort_check(arr, stack_A))
-	{	
-		fclear_list(stack_A);
-		return failed;
-	} // 0 == 정렬되어 있으면 그리디 x 바로 종료
-	stack_A_indexing (arr, stack_A);
-	return success; // 1 == 그리디 시작
+	stack_a->idx_size = stack_a->size;
+	temp = stack_a->head->next;
+	while (i < stack_a->size)
+	{
+		arr[i] = temp->value;
+		i++;
+		temp = temp->next;
+	}
+	quick_sort(arr, 0, (stack_a->size) - 1);
+	if (sort_check(arr, stack_a))
+	{
+		free(arr);
+		fclear_list(stack_a);
+		return (failed);
+	}
+	stack_a_indexing(arr, stack_a);
+	free(arr);
+	return (success);
 }
 
-void quick_sort (int * arr, int start, int end)
+void	quick_sort(int *arr, int start, int end)
 {
-	int pivot;
-	int i;
-	int j;
+	int	pivot;
+	int	i;
+	int	j;
 
 	pivot = start;
-	i = start +1;
+	i = start + 1;
 	j = end;
 	if (start >= end)
-		return;
+		return ;
 	while (i <= j)
 	{
 		while (i <= end && arr[i] <= arr[pivot])
@@ -67,36 +71,36 @@ void quick_sort (int * arr, int start, int end)
 		else
 			ft_swap(&arr[i], &arr[j]);
 	}
-	quick_sort(arr, start, j-1);
-	quick_sort(arr, j+1, end);
+	quick_sort(arr, start, j - 1);
+	quick_sort(arr, j + 1, end);
 }
 
-int sort_check (int * arr, t_list * stack_A)
+int	sort_check(int *arr, t_list *stack_a)
 {
-	int i;
-	t_node * temp;
+	int		i;
+	t_node	*temp;
 
 	i = 0;
-	temp = stack_A->head->next;
-	while (i < stack_A->size)
+	temp = stack_a->head->next;
+	while (i < stack_a->size)
 	{
 		if (arr[i] != temp->value)
-			return failed;
+			return (failed);
 		i++;
 		temp = temp->next;
 	}
-	return success;
+	return (success);
 }
 
-void stack_A_indexing (int * arr, t_list * stack_A)
+void	stack_a_indexing(int *arr, t_list *stack_a)
 {
-	int i;
-	t_node * temp;
+	int		i;
+	t_node	*temp;
 
 	i = 0;
-	while (i < stack_A->size)
+	while (i < stack_a->size)
 	{
-		temp = search_node(stack_A, arr[i]);
+		temp = search_node(stack_a, arr[i]);
 		temp->value = i;
 		i++;
 	}

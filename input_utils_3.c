@@ -6,18 +6,19 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:47:49 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 20:26:16 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:13:05 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./headers/push_swap.h"
+#include "./headers/push_swap.h"
 
-void split_free(char ** split)
+void	split_free(char **split)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	while(split[i])
-	{	
+	while (split[i])
+	{
 		free(split[i]);
 		i++;
 	}
@@ -25,15 +26,17 @@ void split_free(char ** split)
 	free(split);
 }
 
-void split_clear(int argc, char ** split[]) //스플릿 전체 삭제
+void	split_clear(int argc, char **split[])
 {
-	int i;
+	int	i;
+
 	i = 0;
-	while(i < argc-1)
+	while (i < argc - 1)
 	{
 		split_free(split[i]);
 		i++;
 	}
+	free(split);
 }
 
 size_t	count_word(char const *str, char c)

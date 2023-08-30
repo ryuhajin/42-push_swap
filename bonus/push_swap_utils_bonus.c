@@ -6,11 +6,11 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 18:48:08 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 21:40:04 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:49:59 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/push_swap_bonus.h"
+#include "../headers/push_swap_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -23,6 +23,7 @@ size_t	ft_strlen(const char *s)
 	}
 	return (len);
 }
+
 ssize_t	read_file(int fd, char **line, char remainder[][BUFFER_SIZE + 1])
 {
 	char	buff[BUFFER_SIZE + 1];

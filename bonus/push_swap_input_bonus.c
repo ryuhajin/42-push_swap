@@ -6,101 +6,106 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:16:33 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 22:12:28 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:04:53 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/push_swap_bonus.h"
+#include "../headers/push_swap_bonus.h"
 
-int checker_input_s (char * line, t_list * checker_stack_A, t_list * checker_stack_B)
+int	checker_input_s(char *line, t_list *checker_stack_a,
+		t_list *checker_stack_b)
 {
 	if (line[1] == 'a')
-	{	
-		checker_cmd_sa(checker_stack_A);
-		return success;
+	{
+		checker_cmd_sa(checker_stack_a);
+		return (success);
 	}
 	else if (line[1] == 'b')
-	{	
-		checker_cmd_sb(checker_stack_B);
-		return success;
+	{
+		checker_cmd_sb(checker_stack_b);
+		return (success);
 	}
 	else if (line[1] == 's')
 	{
-		checker_cmd_ss(checker_stack_A, checker_stack_B);
-		return success;
+		checker_cmd_ss(checker_stack_a, checker_stack_b);
+		return (success);
 	}
-	return failed;
+	return (failed);
 }
 
-int checker_input_p (char * line, t_list * checker_stack_A, t_list * checker_stack_B)
+int	checker_input_p(char *line, t_list *checker_stack_a,
+		t_list *checker_stack_b)
 {
 	if (line[1] == 'a')
-	{	
-		checker_cmd_pa(checker_stack_B, checker_stack_A);
-		return success;
+	{
+		checker_cmd_pa(checker_stack_b, checker_stack_a);
+		return (success);
 	}
 	else if (line[1] == 'b')
-	{	
-		checker_cmd_pb(checker_stack_A, checker_stack_B);
-		return success;
+	{
+		checker_cmd_pb(checker_stack_a, checker_stack_b);
+		return (success);
 	}
-	return failed;
+	return (failed);
 }
 
-int checker_input_r (char * line, t_list * checker_stack_A, t_list * checker_stack_B)
+int	checker_input_r(char *line, t_list *checker_stack_a,
+		t_list *checker_stack_b)
 {
 	if (line[1] == 'a')
-	{	
-		checker_cmd_ra(checker_stack_A);
-		return success;
+	{
+		checker_cmd_ra(checker_stack_a);
+		return (success);
 	}
 	else if (line[1] == 'b')
-	{	
-		checker_cmd_rb(checker_stack_B);
-		return success;
+	{
+		checker_cmd_rb(checker_stack_b);
+		return (success);
 	}
 	else if (line[1] == 'r')
 	{
-		checker_cmd_rr(checker_stack_A, checker_stack_B);
-		return success;
+		checker_cmd_rr(checker_stack_a, checker_stack_b);
+		return (success);
 	}
-	return failed;
+	return (failed);
 }
 
-int checker_input_rr (char * line, t_list * checker_stack_A, t_list * checker_stack_B)
+int	checker_input_rr(char *line, t_list *checker_stack_a,
+		t_list *checker_stack_b)
 {
 	if (line[2] == 'a')
-	{	
-		checker_cmd_rra(checker_stack_A);
-		return success;
+	{
+		checker_cmd_rra(checker_stack_a);
+		return (success);
 	}
 	else if (line[2] == 'b')
-	{	
-		checker_cmd_rrb(checker_stack_B);
-		return success;
+	{
+		checker_cmd_rrb(checker_stack_b);
+		return (success);
 	}
 	else if (line[2] == 'r')
 	{
-		checker_cmd_rrr(checker_stack_A, checker_stack_B);
-		return success;
+		checker_cmd_rrr(checker_stack_a, checker_stack_b);
+		return (success);
 	}
-	return failed;
+	return (failed);
 }
 
-int checker_cmd_check (char * line, t_list * checker_stack_A, t_list * checker_stack_B)
+int	checker_cmd_check(char *line, t_list *checker_stack_a,
+		t_list *checker_stack_b)
 {
-	int size;
-	int flag;
-	
+	int	size;
+	int	flag;
+
 	flag = failed;
 	size = ft_strlen(line);
 	if (line[0] == 's' && size == 3)
-		flag = checker_input_s(line, checker_stack_A, checker_stack_B);
+		flag = checker_input_s(line, checker_stack_a, checker_stack_b);
 	else if (line[0] == 'p' && size == 3)
-		flag = checker_input_p(line, checker_stack_A, checker_stack_B);
+		flag = checker_input_p(line, checker_stack_a, checker_stack_b);
 	else if (line[0] == 'r' && size == 3)
-		flag = checker_input_r(line, checker_stack_A, checker_stack_B);
+		flag = checker_input_r(line, checker_stack_a, checker_stack_b);
 	else if (line[0] == 'r' && line[1] == 'r' && size == 4)
-		flag = checker_input_rr(line, checker_stack_A, checker_stack_B);
-	return flag;
+		flag = checker_input_rr(line, checker_stack_a, checker_stack_b);
+	return (flag);
 }

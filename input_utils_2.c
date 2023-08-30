@@ -6,51 +6,49 @@
 /*   By: dayou <da1712@student.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 22:26:11 by dayou             #+#    #+#             */
-/*   Updated: 2023/08/29 22:16:05 by dayou            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:07:47 by dayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./headers/push_swap.h"
 
-int number_check (char * str)
+int	number_check(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	if (str[i] == '\0')
-		return failed;
 	while (str[i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
 			i++;
 		else
-			return failed;
+			return (failed);
 	}
-	return success;
+	return (success);
 }
 
-int search_same_value(t_list * list, int value)
+int	search_same_value(t_list *list, int value)
 {
 	if (list->size == 0)
-		return success;
+		return (success);
 	if (search_node(list, value))
-		return failed;
-	return success;
+		return (failed);
+	return (success);
 }
 
-int same_range_check (char * str, t_list * stack_A)
+int	same_range_check(char *str, t_list *stack_a)
 {
-	long long temp;
-	
+	long long	temp;
+
 	temp = ft_atoi(str);
 	if (temp < INT_MIN || INT_MAX < temp)
-		return failed;
-	else if (!search_same_value(stack_A, (int)temp))
-		return failed;
-	push_Back(stack_A, (int)temp);
-	return success;
+		return (failed);
+	else if (!search_same_value(stack_a, (int)temp))
+		return (failed);
+	push_back(stack_a, (int)temp);
+	return (success);
 }
 
 long long	ft_atoi(const char *str)
@@ -62,7 +60,6 @@ long long	ft_atoi(const char *str)
 	numbers = 0;
 	minus = 1;
 	i = 0;
-	
 	if ('-' == str[i] || '+' == str[i])
 	{
 		if ('-' == str[i])
